@@ -241,7 +241,6 @@ function revealResult() {
   showScreen("result");
   window.setTimeout(() => resultReveal.classList.add("is-visible"), 2300);
   window.setTimeout(() => emailForm.classList.add("is-visible"), 3100);
-  window.setTimeout(() => emailInput.focus(), 3400);
 }
 
 function renderMatrix(result) {

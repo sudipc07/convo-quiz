@@ -261,7 +261,8 @@ h1 {
 
 .matrix-card {
   margin: 0 auto;
-  max-width: min(100%, 430px);
+  max-width: min(100%, 600px);
+  padding: 0 0 26px 32px;
   position: relative;
   width: 100%;
 }
@@ -296,18 +297,29 @@ h1 {
 .matrix-tick {
   stroke: var(--accent);
   stroke-linecap: round;
-  stroke-width: 2;
+  stroke-width: 1.6;
 }
 
 .matrix-axis {
-  fill: var(--muted-soft);
+  color: var(--muted-soft);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
+  position: absolute;
+  text-transform: uppercase;
 }
 
 .matrix-axis--initiative {
-  transform: rotate(-90deg);
+  left: 0;
+  top: 50%;
+  transform: translate(-46%, -50%) rotate(-90deg);
+  transform-origin: center;
+}
+
+.matrix-axis--craft {
+  bottom: 0;
+  left: calc(50% + 16px);
+  transform: translateX(-50%);
 }
 
 .matrix-label {
@@ -371,7 +383,7 @@ h1 {
 
 .reveal h2 {
   color: var(--accent);
-  font-size: clamp(2.45rem, 8vw, 4.8rem);
+  font-size: clamp(2.05rem, 6.2vw, 3.65rem);
   line-height: 0.95;
   text-wrap: balance;
 }
