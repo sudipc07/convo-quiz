@@ -6,97 +6,101 @@ const questions = [
     axis: "initiative",
     answers: [
       { text: "Open with it. That's why you're here.", high: true },
-      { text: "Start with their update. See how the conversation goes.", high: false },
+      { text: "Start with their update and see how it goes.", high: false },
     ],
   },
   {
-    text: "Someone on your team got the outcome right but the way they did it created friction with two other people. You:",
+    text: "Someone on your team got the outcome right but created friction with two other people in the process. You:",
     axis: "initiative",
     answers: [
-      { text: "Focus on the outcome. It worked. Don't fix what isn't broken.", high: false },
-      { text: "Talk to them about the friction. The how matters as much as the what.", high: true },
+      { text: "Focus on the outcome. It worked.", high: false },
+      { text: "Talk to them about the friction. How they got there matters.", high: true },
     ],
   },
   {
-    text: "Mid-conversation, the other person's eyes go flat. They're still nodding but they've checked out. You:",
+    text: "Mid-conversation, the other person is still nodding but you can tell they've checked out. You:",
     axis: "craft",
     answers: [
-      { text: "Keep going. You've got ground to cover.", high: false },
-      { text: "Stop. Ask them what they're thinking.", high: true },
+      { text: "Keep going. You have points to make.", high: false },
+      { text: "Stop and ask what they're thinking.", high: true },
     ],
   },
   {
-    text: 'You\'ve just delivered difficult feedback. They say "yeah, fair enough" and move on quickly. You:',
+    text: 'You\'ve just said something difficult. They say "yeah, noted" and moved on fast. You:',
     axis: "craft",
     answers: [
-      { text: "Good. Clean and done.", high: false },
-      { text: "Not sure they actually heard it. You follow up later.", high: true },
+      { text: "Fine. Message received.", high: false },
+      { text: "You're not convinced they actually heard it. You'll check in later.", high: true },
     ],
   },
   {
-    text: "A team member who usually delivers has been off for three weeks. Not bad enough to escalate. Just... different. You:",
+    text: "Someone on your team has been flat for three weeks. Still delivering, but something's off. You:",
     axis: "initiative",
     answers: [
-      { text: "It'll pass. Everyone has patches.", high: false },
+      { text: "Everyone has rough patches. You'll give it more time.", high: false },
       { text: "Something's going on. You find a moment to ask.", high: true },
     ],
   },
   {
-    text: "You're about to tell someone their work isn't good enough. Before you speak, you think about:",
+    text: "Before a hard conversation, your main focus is:",
     axis: "craft",
     answers: [
       { text: "What you need to say.", high: false },
-      { text: "How they're likely to receive it.", high: true },
+      { text: "How they're likely to hear it.", high: true },
     ],
   },
   {
-    text: "The conversation gets emotional. They're not crying but they're close. You:",
+    text: "The other person starts getting emotional. You:",
     axis: "craft",
     answers: [
-      { text: "Acknowledge it briefly and keep going. Dwelling makes it worse.", high: false },
-      { text: "Pause completely. Let them get there and back before you continue.", high: true },
+      { text: "Acknowledge it and keep going. Stopping makes it bigger.", high: false },
+      { text: "Pause. Give them the moment.", high: true },
     ],
   },
   {
-    text: "Two weeks after a difficult conversation, the behaviour hasn't changed. You:",
+    text: "Nothing changed after your last hard conversation. You:",
     axis: "initiative",
     answers: [
-      { text: "Go back in. This time with more clarity on consequences.", high: true },
-      { text: "Wonder if you were clear enough the first time.", high: false },
+      { text: "Go back in. Clearer this time.", high: true },
+      { text: "Replay it. Wonder what you missed.", high: false },
     ],
   },
   {
-    text: "You've just realised mid-conversation that you've got the facts wrong. One of your examples isn't accurate. You:",
+    text: "You're in it and you realise your read of the situation was wrong. You:",
     axis: "craft",
     answers: [
-      { text: "Adjust quietly and keep the overall point alive.", high: false },
-      { text: 'Acknowledge it directly. "Actually, I need to correct that."', high: true },
+      { text: "Adjust quietly and keep your point.", high: false },
+      { text: "Say it out loud. Reset together.", high: true },
     ],
   },
   {
-    text: "Your best performer says something dismissive in a team meeting. Small, but the room noticed. You:",
+    text: "Your best person was dismissive in a meeting. The room noticed. You:",
     axis: "initiative",
     answers: [
-      { text: "Let it go. They're your best performer. Pick your battles.", high: false },
-      { text: "Mention it to them later. Privately, briefly, directly.", high: true },
+      { text: "Leave it. They earn that latitude.", high: false },
+      { text: "Mention it. Quietly, later, directly.", high: true },
     ],
   },
 ];
 
 const archetypes = {
   coach: {
+    key: "coach",
     name: "The Coach",
     line: "You know when to push and when to hold back.",
   },
   bulldozer: {
+    key: "bulldozer",
     name: "The Bulldozer",
     line: "You start things most managers never would. The question is what happens next.",
   },
   thinker: {
+    key: "thinker",
     name: "The Thinker",
     line: "You know exactly what good looks like. You're just not always the one saying it.",
   },
   ghost: {
+    key: "ghost",
     name: "The Ghost",
     line: "The conversations you're avoiding are having themselves - just without you.",
   },
@@ -125,6 +129,10 @@ const questionText = document.querySelector("#questionText");
 const answers = document.querySelector("#answers");
 const resultName = document.querySelector("#resultName");
 const resultLine = document.querySelector("#resultLine");
+const resultDelayedElements = document.querySelectorAll(".result-delayed");
+const matrixDot = document.querySelector("#matrixDot");
+const matrixDotPulse = document.querySelector("#matrixDotPulse");
+const matrixLabels = document.querySelectorAll(".matrix-label");
 const emailForm = document.querySelector("#emailForm");
 const emailInput = document.querySelector("#emailInput");
 const archetypeInput = document.querySelector("#archetypeInput");
@@ -151,7 +159,7 @@ emailForm.addEventListener("submit", async (event) => {
   submitButton.textContent = "Sending...";
 
   try {
-    await submitResult(email, state.result.name);
+    await submitResult(email, state.result.name, state.scores);
     submittedEmail.textContent = email;
     showScreen("thanks");
   } catch (error) {
@@ -229,8 +237,28 @@ function revealResult() {
   resultName.textContent = state.result.name;
   resultLine.textContent = state.result.line;
   archetypeInput.value = state.result.name;
+  renderMatrix(state.result);
   showScreen("result");
-  window.setTimeout(() => emailInput.focus(), 320);
+  window.setTimeout(() => {
+    resultDelayedElements.forEach((element) => element.classList.add("is-visible"));
+  }, 500);
+  window.setTimeout(() => emailInput.focus(), 820);
+}
+
+function renderMatrix(result) {
+  const padding = 24;
+  const usableSize = 320 - padding * 2;
+  const x = padding + (state.scores.craft / 5) * usableSize;
+  const y = 320 - padding - (state.scores.initiative / 5) * usableSize;
+
+  matrixDot.setAttribute("cx", x);
+  matrixDot.setAttribute("cy", y);
+  matrixDotPulse.setAttribute("cx", x);
+  matrixDotPulse.setAttribute("cy", y);
+
+  matrixLabels.forEach((label) => {
+    label.classList.toggle("is-active", label.dataset.quadrant === result.key);
+  });
 }
 
 function showScreen(name) {
@@ -249,8 +277,13 @@ function showScreen(name) {
   }, 280);
 }
 
-async function submitResult(email, archetype) {
-  const payload = { email, archetype };
+async function submitResult(email, archetype, scores) {
+  const payload = {
+    email,
+    archetype,
+    initiative_score: scores.initiative,
+    craft_score: scores.craft,
+  };
 
   if (!FORM_ENDPOINT) {
     console.info("Set FORM_ENDPOINT in script.js before launch.", payload);
