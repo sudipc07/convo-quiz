@@ -26,13 +26,13 @@ Coaches sometimes underestimate how much the conversation mattered to the other 
 
 What to do next
 
-The conversations worth having never stop. Even Coaches benefit from having the words ready before they need them.
+You don't need convincing. You need the scripts ready before the next one comes up.
 
-The Hard Conversation Playbook is 12 word-for-word scripts for the moments that matter most - plus an AI prompt for each one to adapt to your specific person and situation. $15. Most Coaches buy it to share with their team.
+The Hard Conversation Playbook. 12 conversations. Word-for-word. The opening line, the follow-up, the traps to avoid. Plus an AI prompt for each one that adapts it to the actual person sitting across from you.
 
-https://sudipc.gumroad.com/l/hardconversations
+$15. You'll use it this week.
 
-- Sudipto Chanda`,
+https://sudipc.gumroad.com/l/hardconversations`,
   },
   "The Bulldozer": {
     subject: "Your result: The Bulldozer",
@@ -52,13 +52,13 @@ The fix isn't to go softer. It's to go slower. Start with a question, not a stat
 
 What to do next
 
-You have the initiative. Adding craft doesn't make you less direct - it makes your directness actually stick.
+You already walk into the room. This gives you better words to bring with you.
 
-The Hard Conversation Playbook gives you the opening lines, the diagnostic questions, and the follow-up moves for 12 of the hardest conversations managers face. $15. The scripts won't slow you down. They'll make the impact last.
+The Hard Conversation Playbook. 12 conversations. Word-for-word. The opening line that doesn't trigger defences. The questions that get the real answer. The follow-up that makes it stick.
 
-https://sudipc.gumroad.com/l/hardconversations
+$15. Your next hard conversation is probably this week. Go in with the script.
 
-- Sudipto Chanda`,
+https://sudipc.gumroad.com/l/hardconversations`,
   },
   "The Thinker": {
     subject: "Your result: The Thinker",
@@ -78,13 +78,15 @@ The right moment is usually two weeks ago. The conversation you've been turning 
 
 What to do next
 
-You don't need to get better at conversations. You need a reason to start them sooner. Having the words ready before you need them removes the last excuse to wait.
+You already know what to say. You need something that makes you say it sooner.
 
-The Hard Conversation Playbook is 12 word-for-word scripts - the opening line, the questions, the follow-up. Ready when you are. $15.
+Having the script written down before you need it removes the last excuse to wait. That's what this is.
 
-https://sudipc.gumroad.com/l/hardconversations
+The Hard Conversation Playbook. 12 conversations. Word-for-word. Open the page, find your situation, read the script, walk into the room.
 
-- Sudipto Chanda`,
+$15. For the conversation you've been putting off since last week.
+
+https://sudipc.gumroad.com/l/hardconversations`,
   },
   "The Ghost": {
     subject: "Your result: The Ghost",
@@ -110,11 +112,11 @@ What to do next
 
 Don't start with the hardest conversation. Start with the smallest one. And don't wing it - go in with the words already written down.
 
-The Hard Conversation Playbook gives you the exact opening line, the follow-up questions, and the tone for 12 of the hardest conversations managers face. Plus an AI prompt for each one that adapts it to your actual person. $15. Start with script 1.
+The Hard Conversation Playbook. 12 conversations. Word-for-word. Each one gives you the exact opening line so you don't have to figure it out yourself. Plus an AI prompt that adapts it to your actual situation.
 
-https://sudipc.gumroad.com/l/hardconversations
+$15. Pick one conversation. Use one script. That's it.
 
-- Sudipto Chanda`,
+https://sudipc.gumroad.com/l/hardconversations`,
   },
 };
 
@@ -234,13 +236,9 @@ function renderBlock(block, index) {
     return `<h2 style="font-size:18px;line-height:1.25;margin:32px 0 10px;color:#1A1A1A;font-weight:700;">${escapeHtml(block)}</h2>`;
   }
 
-  if (block === "- Sudipto Chanda") {
-    return `<p style="font-size:15px;line-height:1.7;margin:28px 0 0;color:#5A5A5A;">${escapeHtml(block)}</p>`;
-  }
-
   if (block.startsWith("https://")) {
     const url = escapeHtml(block);
-    return `<p style="margin:24px 0 0;"><a href="${url}" style="display:inline-block;background:linear-gradient(135deg,#FF5A3C,#FF8C2E);color:#FFFFFF;text-decoration:none;font-weight:700;border-radius:60px;padding:14px 24px;">Get the Playbook</a></p>`;
+    return `<table role="presentation" cellspacing="0" cellpadding="0" style="margin:26px 0 10px;"><tr><td style="border-radius:60px;background:#FF5A3C;background-image:linear-gradient(135deg,#FF5A3C,#FF8C2E);"><a href="${url}" style="display:inline-block;color:#FFFFFF !important;text-decoration:none;font-weight:700;font-size:16px;line-height:1.2;border-radius:60px;padding:14px 24px;">Get the Playbook</a></td></tr></table>`;
   }
 
   if (index === 0) {
