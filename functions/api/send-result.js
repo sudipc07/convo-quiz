@@ -1,5 +1,11 @@
 const RESEND_API_URL = "https://api.resend.com/emails";
-const DEFAULT_FROM = "Hard Conversations <onboarding@resend.dev>";
+const DEFAULT_FROM = "Better Managers Club <onboarding@resend.dev>";
+const SECTION_HEADERS = new Set([
+  "What this means in practice",
+  "Your blind spot",
+  "Your honest truth",
+  "What to do next",
+]);
 
 const emails = {
   "The Coach": {
@@ -149,7 +155,8 @@ export async function onRequestPost({ request, env }) {
       from: env.RESEND_FROM_EMAIL || DEFAULT_FROM,
       to: [email],
       subject: resultEmail.subject,
-      text: withScoreSummary(resultEmail.text, initiative_score, craft_score),
+      text: resultEmail.text,
+      html: renderEmailHtml(resultEmail.text),
     }),
   });
 
@@ -164,15 +171,6 @@ export async function onRequestPost({ request, env }) {
 
 export function onRequest({ env }) {
   return json({ error: "Method not allowed" }, 405, env);
-}
-
-function withScoreSummary(text, initiativeScore, craftScore) {
-  return `${text}
-
----
-Assessment scores
-Initiative: ${initiativeScore}/5
-Craft: ${craftScore}/5`;
 }
 
 function isValidEmail(email) {
@@ -199,4 +197,64 @@ function corsHeaders(env) {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
+}
+
+function renderEmailHtml(text) {
+  const blocks = text.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
+
+  return `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hard Conversations Result</title>
+  </head>
+  <body style="margin:0;background:#FFF9F2;color:#1A1A1A;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.6;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Your Hard Conversations result from Better Managers Club.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#FFF9F2;">
+      <tr>
+        <td align="center" style="padding:32px 18px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;background:#FFFFFF;border:1px solid rgba(255,90,60,0.12);border-radius:18px;box-shadow:0 4px 24px rgba(255,120,50,0.06);">
+            <tr>
+              <td style="padding:34px 30px 16px;">
+                <div style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#FF5A3C;margin-bottom:18px;">Better Managers Club</div>
+                ${blocks.map(renderBlock).join("")}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function renderBlock(block, index) {
+  if (SECTION_HEADERS.has(block)) {
+    return `<h2 style="font-size:18px;line-height:1.25;margin:32px 0 10px;color:#1A1A1A;font-weight:700;">${escapeHtml(block)}</h2>`;
+  }
+
+  if (block === "- Sudipto Chanda") {
+    return `<p style="font-size:15px;line-height:1.7;margin:28px 0 0;color:#5A5A5A;">${escapeHtml(block)}</p>`;
+  }
+
+  if (block.startsWith("https://")) {
+    const url = escapeHtml(block);
+    return `<p style="margin:24px 0 0;"><a href="${url}" style="display:inline-block;background:linear-gradient(135deg,#FF5A3C,#FF8C2E);color:#FFFFFF;text-decoration:none;font-weight:700;border-radius:60px;padding:14px 24px;">Get the Playbook</a></p>`;
+  }
+
+  if (index === 0) {
+    return `<p style="font-size:24px;line-height:1.25;margin:0 0 22px;color:#FF5A3C;font-weight:700;">${escapeHtml(block)}</p>`;
+  }
+
+  return `<p style="font-size:16px;line-height:1.7;margin:0 0 18px;color:#5A5A5A;">${escapeHtml(block)}</p>`;
+}
+
+function escapeHtml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }

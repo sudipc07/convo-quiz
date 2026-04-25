@@ -20,7 +20,7 @@ Put local secrets in `.dev.vars`:
 
 ```sh
 RESEND_API_KEY=your_resend_api_key
-RESEND_FROM_EMAIL="Hard Conversations <results@bettermanagers.club>"
+RESEND_FROM_EMAIL="Better Managers Club <results@bettermanagers.club>"
 ALLOWED_ORIGIN=http://127.0.0.1:8788
 ```
 
@@ -43,7 +43,7 @@ Configure these environment variables in Cloudflare Pages under Settings > Varia
 
 ```sh
 RESEND_API_KEY=your_resend_api_key
-RESEND_FROM_EMAIL="Hard Conversations <results@bettermanagers.club>"
+RESEND_FROM_EMAIL="Better Managers Club <results@bettermanagers.club>"
 ALLOWED_ORIGIN=https://bettermanagers.club
 ```
 
