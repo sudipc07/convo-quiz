@@ -110,32 +110,31 @@ https://sudipc.gumroad.com/l/hardconversations
   },
 };
 
-module.exports = async function sendResult(req, res) {
-  if (req.method === "OPTIONS") {
-    setCorsHeaders(res);
-    res.status(204).end();
-    return;
-  }
+export function onRequestOptions({ env }) {
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders(env),
+  });
+}
 
-  if (req.method !== "POST") {
-    res.status(405).json({ error: "Method not allowed" });
-    return;
-  }
-
-  setCorsHeaders(res);
-
-  const apiKey = process.env.RESEND_API_KEY;
+export async function onRequestPost({ request, env }) {
+  const apiKey = env.RESEND_API_KEY;
   if (!apiKey) {
-    res.status(500).json({ error: "Resend is not configured" });
-    return;
+    return json({ error: "Resend is not configured" }, 500, env);
   }
 
-  const { email, archetype, initiative_score, craft_score } = req.body || {};
+  let payload;
+  try {
+    payload = await request.json();
+  } catch (error) {
+    return json({ error: "Invalid JSON payload" }, 400, env);
+  }
+
+  const { email, archetype, initiative_score, craft_score } = payload;
   const resultEmail = emails[archetype];
 
   if (!isValidEmail(email) || !resultEmail || !isValidScore(initiative_score) || !isValidScore(craft_score)) {
-    res.status(400).json({ error: "Invalid result payload" });
-    return;
+    return json({ error: "Invalid result payload" }, 400, env);
   }
 
   const resendResponse = await fetch(RESEND_API_URL, {
@@ -145,7 +144,7 @@ module.exports = async function sendResult(req, res) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: process.env.RESEND_FROM_EMAIL || DEFAULT_FROM,
+      from: env.RESEND_FROM_EMAIL || DEFAULT_FROM,
       to: [email],
       subject: resultEmail.subject,
       text: withScoreSummary(resultEmail.text, initiative_score, craft_score),
@@ -155,12 +154,15 @@ module.exports = async function sendResult(req, res) {
   if (!resendResponse.ok) {
     const details = await resendResponse.text();
     console.error("Resend send failed", details);
-    res.status(502).json({ error: "Email failed to send" });
-    return;
+    return json({ error: "Email failed to send" }, 502, env);
   }
 
-  res.status(200).json({ ok: true });
-};
+  return json({ ok: true }, 200, env);
+}
+
+export function onRequest({ env }) {
+  return json({ error: "Method not allowed" }, 405, env);
+}
 
 function withScoreSummary(text, initiativeScore, craftScore) {
   return `${text}
@@ -179,8 +181,20 @@ function isValidScore(score) {
   return Number.isInteger(score) && score >= 0 && score <= 5;
 }
 
-function setCorsHeaders(res) {
-  res.setHeader("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN || "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+function json(payload, status, env) {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      ...corsHeaders(env),
+      "Content-Type": "application/json",
+    },
+  });
+}
+
+function corsHeaders(env) {
+  return {
+    "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
 }
