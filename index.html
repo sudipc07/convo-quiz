@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hard Conversations Assessment</title>
+    <meta
+      name="description"
+      content="A 10-question behavioural assessment for managers navigating hard conversations."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" id="app">
+      <section class="screen screen--landing is-active" data-screen="landing">
+        <div class="stack">
+          <p class="eyebrow">Hard Conversations</p>
+          <h1>Find your manager archetype.</h1>
+          <p class="lede">
+            Ten fast choices. One honest read on how you handle the conversations
+            most managers avoid.
+          </p>
+          <button class="primary-button" type="button" id="startButton">
+            Start assessment
+          </button>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="question" aria-live="polite">
+        <div class="question-shell">
+          <p class="question-count" id="questionCount"></p>
+          <h2 class="question-text" id="questionText"></h2>
+          <div class="answers" id="answers"></div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="result">
+        <div class="result-shell">
+          <div class="reveal">
+            <p class="eyebrow">Your result</p>
+            <h2 id="resultName"></h2>
+            <p id="resultLine"></p>
+          </div>
+
+          <form class="email-card" id="emailForm">
+            <h3>Want the full picture?</h3>
+            <p>
+              We'll send your complete result - what your archetype means, where
+              your blind spots are, and what to focus on next.
+            </p>
+            <label class="sr-only" for="emailInput">Work email</label>
+            <input
+              id="emailInput"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="your work email"
+              required
+            />
+            <input type="hidden" name="archetype" id="archetypeInput" />
+            <p class="form-error" id="formError" role="alert"></p>
+            <button class="primary-button" type="submit" id="submitButton">
+              Send my result &rarr;
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="thanks">
+        <div class="thanks-shell">
+          <h2>Done. Check your inbox.</h2>
+          <p>
+            Your full Hard Conversations result is on its way to
+            <span id="submittedEmail"></span>.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
