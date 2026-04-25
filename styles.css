@@ -118,6 +118,43 @@ input {
   text-transform: uppercase;
 }
 
+.question-meta {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+  min-height: 34px;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 90, 60, 0.16);
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  min-height: 34px;
+  padding: 7px 14px;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  background: #ffffff;
+  border-color: rgba(255, 90, 60, 0.28);
+  color: var(--accent);
+  outline: 0;
+  transform: translateY(-1px);
+}
+
+.back-button[hidden] {
+  display: none;
+}
+
 h1,
 h2,
 h3,

@@ -1,4 +1,7 @@
 const FORM_ENDPOINT = "/api/send-result";
+const DOT_ANIMATION_MS = 2100;
+const RESULT_REVEAL_MS = 2300;
+const EMAIL_REVEAL_MS = 3100;
 
 const questions = [
   {
@@ -108,6 +111,7 @@ const archetypes = {
 
 const state = {
   currentQuestion: 0,
+  responses: [],
   scores: {
     initiative: 0,
     craft: 0,
@@ -123,6 +127,7 @@ const screens = {
 };
 
 const startButton = document.querySelector("#startButton");
+const backButton = document.querySelector("#backButton");
 const questionShell = document.querySelector(".question-shell");
 const questionCount = document.querySelector("#questionCount");
 const questionText = document.querySelector("#questionText");
@@ -139,10 +144,25 @@ const archetypeInput = document.querySelector("#archetypeInput");
 const formError = document.querySelector("#formError");
 const submitButton = document.querySelector("#submitButton");
 const submittedEmail = document.querySelector("#submittedEmail");
+let matrixHighlightTimer;
 
 startButton.addEventListener("click", () => {
   renderQuestion();
   showScreen("question");
+});
+
+backButton.addEventListener("click", () => {
+  if (state.currentQuestion === 0) {
+    return;
+  }
+
+  state.currentQuestion -= 1;
+  renderQuestion();
+  questionShell.classList.remove("is-leaving");
+  questionShell.classList.add("is-entering");
+  requestAnimationFrame(() => {
+    questionShell.classList.remove("is-entering");
+  });
 });
 
 emailForm.addEventListener("submit", async (event) => {
@@ -172,12 +192,14 @@ emailForm.addEventListener("submit", async (event) => {
 
 function renderQuestion() {
   const question = questions[state.currentQuestion];
+  const selectedAnswerIndex = state.responses[state.currentQuestion];
   questionCount.textContent = `Question ${state.currentQuestion + 1} of ${questions.length}`;
+  backButton.hidden = state.currentQuestion === 0;
   questionText.textContent = question.text;
   answers.replaceChildren(
     ...question.answers.map((answer, index) => {
       const button = document.createElement("button");
-      button.className = "answer-button";
+      button.className = selectedAnswerIndex === index ? "answer-button is-selected" : "answer-button";
       button.type = "button";
       button.textContent = answer.text;
       button.addEventListener("click", () => selectAnswer(index));
@@ -187,8 +209,6 @@ function renderQuestion() {
 }
 
 function selectAnswer(answerIndex) {
-  const question = questions[state.currentQuestion];
-  const answer = question.answers[answerIndex];
   const buttons = answers.querySelectorAll(".answer-button");
 
   buttons.forEach((button) => {
@@ -197,9 +217,9 @@ function selectAnswer(answerIndex) {
   });
   buttons[answerIndex].classList.add("is-selected");
 
-  if (answer.high) {
-    state.scores[question.axis] += 1;
-  }
+  state.responses = state.responses.slice(0, state.currentQuestion);
+  state.responses[state.currentQuestion] = answerIndex;
+  recalculateScores();
 
   questionShell.classList.add("is-leaving");
 
@@ -218,6 +238,20 @@ function selectAnswer(answerIndex) {
 
     revealResult();
   }, 300);
+}
+
+function recalculateScores() {
+  state.scores.initiative = 0;
+  state.scores.craft = 0;
+
+  state.responses.forEach((answerIndex, questionIndex) => {
+    const question = questions[questionIndex];
+    const answer = question.answers[answerIndex];
+
+    if (answer?.high) {
+      state.scores[question.axis] += 1;
+    }
+  });
 }
 
 function revealResult() {
@@ -239,8 +273,8 @@ function revealResult() {
   archetypeInput.value = state.result.name;
   renderMatrix(state.result);
   showScreen("result");
-  window.setTimeout(() => resultReveal.classList.add("is-visible"), 2300);
-  window.setTimeout(() => emailForm.classList.add("is-visible"), 3100);
+  window.setTimeout(() => resultReveal.classList.add("is-visible"), RESULT_REVEAL_MS);
+  window.setTimeout(() => emailForm.classList.add("is-visible"), EMAIL_REVEAL_MS);
 }
 
 function renderMatrix(result) {
@@ -255,12 +289,22 @@ function renderMatrix(result) {
   void matrixDotGroup.getBoundingClientRect();
   matrixDotGroup.classList.add("is-animating");
 
+  window.clearTimeout(matrixHighlightTimer);
   matrixLabels.forEach((label) => {
-    label.classList.toggle("is-active", label.dataset.quadrant === result.key);
+    label.classList.remove("is-active");
   });
   matrixQuadrants.forEach((quadrant) => {
-    quadrant.classList.toggle("is-active", quadrant.dataset.quadrant === result.key);
+    quadrant.classList.remove("is-active");
   });
+
+  matrixHighlightTimer = window.setTimeout(() => {
+    matrixLabels.forEach((label) => {
+      label.classList.toggle("is-active", label.dataset.quadrant === result.key);
+    });
+    matrixQuadrants.forEach((quadrant) => {
+      quadrant.classList.toggle("is-active", quadrant.dataset.quadrant === result.key);
+    });
+  }, DOT_ANIMATION_MS);
 }
 
 function showScreen(name) {

@@ -8,7 +8,7 @@
       name="description"
       content="A 10-question behavioural assessment for managers navigating hard conversations."
     />
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=11" />
   </head>
   <body>
     <main class="app" id="app">
@@ -28,7 +28,10 @@
 
       <section class="screen" data-screen="question" aria-live="polite">
         <div class="question-shell">
-          <p class="question-count" id="questionCount"></p>
+          <div class="question-meta">
+            <button class="back-button" type="button" id="backButton">Back</button>
+            <p class="question-count" id="questionCount"></p>
+          </div>
           <h2 class="question-text" id="questionText"></h2>
           <div class="answers" id="answers"></div>
         </div>
@@ -70,7 +73,7 @@
                 <circle class="matrix-dot" cx="0" cy="0" r="12" />
               </g>
             </svg>
-            <div class="matrix-axis matrix-axis--initiative">Initiative ↑</div>
+            <div class="matrix-axis matrix-axis--initiative">↑ Initiative</div>
             <div class="matrix-axis matrix-axis--craft">Craft →</div>
           </div>
 
