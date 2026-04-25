@@ -8,7 +8,7 @@
       name="description"
       content="A 10-question behavioural assessment for managers navigating hard conversations."
     />
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body>
     <main class="app" id="app">
@@ -39,6 +39,10 @@
           <div class="matrix-card" aria-label="Hard conversations assessment matrix">
             <svg class="matrix" viewBox="0 0 320 320" role="img">
               <rect class="matrix-bg" x="1" y="1" width="318" height="318" rx="8" />
+              <rect class="matrix-quadrant" data-quadrant="bulldozer" x="1" y="1" width="159" height="159" />
+              <rect class="matrix-quadrant" data-quadrant="coach" x="160" y="1" width="159" height="159" />
+              <rect class="matrix-quadrant" data-quadrant="ghost" x="1" y="160" width="159" height="159" />
+              <rect class="matrix-quadrant" data-quadrant="thinker" x="160" y="160" width="159" height="159" />
               <line class="matrix-line" x1="160" y1="0" x2="160" y2="320" />
               <line class="matrix-line" x1="0" y1="160" x2="320" y2="160" />
               <text class="matrix-label" data-quadrant="bulldozer" x="18" y="32">
@@ -59,8 +63,10 @@
               >
                 The Thinker
               </text>
-              <circle class="matrix-dot-pulse" id="matrixDotPulse" cx="160" cy="160" r="12" />
-              <circle class="matrix-dot" id="matrixDot" cx="160" cy="160" r="12" />
+              <g class="matrix-dot-group" id="matrixDotGroup">
+                <circle class="matrix-dot-pulse" cx="0" cy="0" r="12" />
+                <circle class="matrix-dot" cx="0" cy="0" r="12" />
+              </g>
             </svg>
           </div>
 

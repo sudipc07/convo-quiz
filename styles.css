@@ -270,6 +270,15 @@ h1 {
   stroke-width: 2;
 }
 
+.matrix-quadrant {
+  fill: rgba(246, 239, 226, 0.025);
+  transition: fill 220ms ease;
+}
+
+.matrix-quadrant.is-active {
+  fill: rgba(200, 169, 81, 0.12);
+}
+
 .matrix-line {
   stroke: rgba(200, 169, 81, 0.72);
   stroke-width: 1.5;
@@ -285,6 +294,16 @@ h1 {
 
 .matrix-label.is-active {
   fill: var(--accent);
+}
+
+.matrix-dot-group {
+  --dot-x: 160px;
+  --dot-y: 160px;
+  transform: translate(var(--dot-x), var(--dot-y));
+}
+
+.matrix-dot-group.is-animating {
+  animation: dot-settle 760ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
 .matrix-dot,
@@ -448,6 +467,20 @@ input[type="email"]:focus {
 
   .matrix-dot-pulse {
     animation: none;
+  }
+
+  .matrix-dot-group.is-animating {
+    animation: none;
+  }
+}
+
+@keyframes dot-settle {
+  from {
+    transform: translate(160px, 160px);
+  }
+
+  to {
+    transform: translate(var(--dot-x), var(--dot-y));
   }
 }
 

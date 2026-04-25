@@ -66,11 +66,11 @@ const questions = [
     ],
   },
   {
-    text: "You're in it and you realise your read of the situation was wrong. You:",
+    text: "Mid-conversation you realise one of your examples was wrong. You:",
     axis: "craft",
     answers: [
-      { text: "Adjust quietly and keep your point.", high: false },
-      { text: "Say it out loud. Reset together.", high: true },
+      { text: "Move on. The overall point still stands.", high: false },
+      { text: "Correct yourself out loud. You'd want them to do the same.", high: true },
     ],
   },
   {
@@ -130,9 +130,9 @@ const answers = document.querySelector("#answers");
 const resultName = document.querySelector("#resultName");
 const resultLine = document.querySelector("#resultLine");
 const resultDelayedElements = document.querySelectorAll(".result-delayed");
-const matrixDot = document.querySelector("#matrixDot");
-const matrixDotPulse = document.querySelector("#matrixDotPulse");
+const matrixDotGroup = document.querySelector("#matrixDotGroup");
 const matrixLabels = document.querySelectorAll(".matrix-label");
+const matrixQuadrants = document.querySelectorAll(".matrix-quadrant");
 const emailForm = document.querySelector("#emailForm");
 const emailInput = document.querySelector("#emailInput");
 const archetypeInput = document.querySelector("#archetypeInput");
@@ -251,13 +251,17 @@ function renderMatrix(result) {
   const x = padding + (state.scores.craft / 5) * usableSize;
   const y = 320 - padding - (state.scores.initiative / 5) * usableSize;
 
-  matrixDot.setAttribute("cx", x);
-  matrixDot.setAttribute("cy", y);
-  matrixDotPulse.setAttribute("cx", x);
-  matrixDotPulse.setAttribute("cy", y);
+  matrixDotGroup.classList.remove("is-animating");
+  matrixDotGroup.style.setProperty("--dot-x", `${x}px`);
+  matrixDotGroup.style.setProperty("--dot-y", `${y}px`);
+  void matrixDotGroup.getBoundingClientRect();
+  matrixDotGroup.classList.add("is-animating");
 
   matrixLabels.forEach((label) => {
     label.classList.toggle("is-active", label.dataset.quadrant === result.key);
+  });
+  matrixQuadrants.forEach((quadrant) => {
+    quadrant.classList.toggle("is-active", quadrant.dataset.quadrant === result.key);
   });
 }
 
