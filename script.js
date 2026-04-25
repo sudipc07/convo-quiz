@@ -69,11 +69,11 @@ const questions = [
     ],
   },
   {
-    text: "You're in it and you realise your read of the situation was wrong. You:",
+    text: "Mid-conversation you realise one of your examples was wrong. You:",
     axis: "craft",
     answers: [
-      { text: "Adjust quietly and keep your point.", high: false },
-      { text: "Say it out loud. Reset together.", high: true },
+      { text: "Move on. The overall point still stands.", high: false },
+      { text: "Correct yourself out loud. You'd want them to do the same.", high: true },
     ],
   },
   {
@@ -105,7 +105,7 @@ const archetypes = {
   ghost: {
     key: "ghost",
     name: "The Ghost",
-    line: "You know exactly what needs to be said. That's not the same as saying it.",
+    line: "Something needs to be said. You're just not sure what - or when.",
   },
 };
 

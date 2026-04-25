@@ -82,27 +82,29 @@ https://sudipc.gumroad.com/l/hardconversations
   },
   "The Ghost": {
     subject: "Your result: The Ghost",
-    text: `The conversations you're avoiding are having themselves - just without you.
+    text: `Something needs to be said. You're just not sure what - or when.
 
-Your team is talking. The person you haven't addressed is drawing their own conclusions. The tension you've been hoping will resolve is quietly becoming the new normal. None of this is because you don't care. Most Ghosts care deeply. That's actually part of the problem.
+You're not avoiding hard conversations because you don't care. You're avoiding them because you don't have a way in. You sense the problem - the tension, the underperformance, the thing everyone's working around - but when you try to imagine the actual conversation, it feels like standing at the edge of a cliff with no guardrail.
+
+So you wait. And the longer you wait, the bigger it gets. And the bigger it gets, the less you want to start.
 
 What this means in practice
 
-Caring about the outcome makes the conversation feel higher stakes. So you wait until you're sure. Until you have all the facts. Until the moment is right. Until it's so undeniable you have no choice. By then it's harder than it ever needed to be.
+Problems that could have been small conversations three weeks ago are now big conversations you dread. Your silence isn't neutral - the other person reads it as "everything is fine" and keeps doing what they're doing. The gap between what you see and what you say gets wider every week.
 
 Your blind spot
 
-Silence reads as acceptance. Every week you don't say something, the other person files it under "this is fine." Your avoidance isn't neutral - it's a signal. Just not the one you mean to send.
+It's not one gap. It's two. You hold back from starting (that's initiative), and when you do start, you're not sure what to say or how to say it without making things worse (that's craft). Most advice tells you to "just have the conversation" - which is useless when you don't have the words.
 
 Your honest truth
 
-The first conversation is the hardest. Not because the words are hard to find - they're not, once you're in it. But because starting feels like the point of no return. It isn't. Most hard conversations, when they happen early, are just conversations. It's the delayed ones that become confrontations.
+You need both things at once: a reason to start, and the words to start with. One without the other doesn't work. Courage without craft damages. Craft without courage stays silent. You need both.
 
 What to do next
 
-Start with one. Pick the lowest-stakes hard conversation you've been avoiding - not the big one, the small one - and have it this week.
+Don't start with the hardest conversation. Start with the smallest one. And don't wing it - go in with the words already written down.
 
-The Hard Conversation Playbook gives you the exact opening line so you don't have to find the words yourself. $15. Start with script 1. You'll know which one it is.
+The Hard Conversation Playbook gives you the exact opening line, the follow-up questions, and the tone for 12 of the hardest conversations managers face. Plus an AI prompt for each one that adapts it to your actual person. $15. Start with script 1.
 
 https://sudipc.gumroad.com/l/hardconversations
 
