@@ -66,11 +66,11 @@ const questions = [
     ],
   },
   {
-    text: "Mid-conversation you realise one of your examples was wrong. You:",
+    text: "You're in it and you realise your read of the situation was wrong. You:",
     axis: "craft",
     answers: [
-      { text: "Move on. The overall point still stands.", high: false },
-      { text: "Correct yourself out loud. You'd want them to do the same.", high: true },
+      { text: "Adjust quietly and keep your point.", high: false },
+      { text: "Say it out loud. Reset together.", high: true },
     ],
   },
   {
@@ -92,7 +92,7 @@ const archetypes = {
   bulldozer: {
     key: "bulldozer",
     name: "The Bulldozer",
-    line: "You start things most managers never would. The question is what happens next.",
+    line: "You have the courage most managers never build. Now make it stick.",
   },
   thinker: {
     key: "thinker",
@@ -102,7 +102,7 @@ const archetypes = {
   ghost: {
     key: "ghost",
     name: "The Ghost",
-    line: "The conversations you're avoiding are having themselves - just without you.",
+    line: "You know exactly what needs to be said. That's not the same as saying it.",
   },
 };
 

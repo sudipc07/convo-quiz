@@ -1,16 +1,18 @@
 :root {
-  --background: #fff8ef;
-  --cream: #fff8ef;
-  --paper: #fffdf8;
-  --paper-warm: #fff1e5;
-  --ink: #171717;
-  --muted: #6b6865;
-  --muted-soft: #a6a09a;
-  --accent: #ff5a3d;
-  --accent-2: #ff842d;
-  --accent-soft: rgba(255, 90, 61, 0.11);
-  --line: rgba(255, 90, 61, 0.18);
-  --green: #e85a23;
+  --background: #fff9f2;
+  --cream: #fff9f2;
+  --paper: #fff;
+  --paper-warm: #fff0e0;
+  --ink: #1a1a1a;
+  --muted: #5a5a5a;
+  --muted-soft: rgba(90, 90, 90, 0.62);
+  --accent: #ff5a3c;
+  --accent-2: #ff8c2e;
+  --amber: #ffb830;
+  --gold-light: #ffd666;
+  --accent-soft: rgba(255, 90, 60, 0.1);
+  --line: rgba(255, 90, 60, 0.18);
+  --green: #ff8c2e;
   --danger: #c73d2a;
   color-scheme: light;
   font-family:
@@ -30,8 +32,8 @@ body {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 16% 18%, rgba(255, 132, 45, 0.13), transparent 24rem),
-    linear-gradient(180deg, #fffaf4 0%, var(--background) 100%);
+    radial-gradient(circle at 16% 18%, rgba(255, 140, 46, 0.12), transparent 24rem),
+    linear-gradient(180deg, var(--cream) 0%, var(--background) 100%);
   color: var(--ink);
 }
 
@@ -48,9 +50,9 @@ input {
 
 .app::before {
   background:
-    radial-gradient(ellipse at 10% 30%, transparent 44%, rgba(255, 90, 61, 0.1) 44.5%, transparent 45.2%),
-    radial-gradient(ellipse at 74% 10%, transparent 42%, rgba(255, 132, 45, 0.12) 42.5%, transparent 43.2%),
-    radial-gradient(ellipse at 46% 78%, transparent 45%, rgba(255, 90, 61, 0.08) 45.5%, transparent 46.2%);
+    radial-gradient(ellipse at 10% 30%, transparent 44%, rgba(255, 90, 60, 0.1) 44.5%, transparent 45.2%),
+    radial-gradient(ellipse at 74% 10%, transparent 42%, rgba(255, 140, 46, 0.12) 42.5%, transparent 43.2%),
+    radial-gradient(ellipse at 46% 78%, transparent 45%, rgba(255, 90, 60, 0.08) 45.5%, transparent 46.2%);
   background-size:
     980px 720px,
     760px 620px,
@@ -144,7 +146,7 @@ h1 {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border: 0;
   border-radius: 999px;
-  box-shadow: 0 22px 44px rgba(255, 90, 61, 0.23);
+  box-shadow: 0 4px 20px rgba(255, 90, 60, 0.3);
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
@@ -210,10 +212,10 @@ h1 {
 
 .answer-button {
   background: rgba(255, 255, 255, 0.68);
-  border: 1px solid rgba(255, 90, 61, 0.16);
-  border-left: 4px solid rgba(255, 90, 61, 0.72);
+  border: 1px solid rgba(255, 90, 60, 0.16);
+  border-left: 4px solid rgba(255, 90, 60, 0.72);
   border-radius: 18px;
-  box-shadow: 0 20px 44px rgba(255, 90, 61, 0.08);
+  box-shadow: 0 4px 24px rgba(255, 120, 50, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
   color: var(--ink);
   cursor: pointer;
   font-size: clamp(1.12rem, 4.2vw, 1.46rem);
@@ -233,22 +235,22 @@ h1 {
 .answer-button:hover,
 .answer-button:focus-visible {
   background: #ffffff;
-  border-color: rgba(255, 90, 61, 0.28);
-  box-shadow: 0 22px 48px rgba(255, 90, 61, 0.14);
+  border-color: rgba(255, 90, 60, 0.28);
+  box-shadow: 0 12px 40px rgba(255, 120, 50, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
   outline: 0;
   transform: translateY(-2px);
 }
 
 .answer-button.is-selected {
   background: var(--accent-soft);
-  border-color: rgba(255, 90, 61, 0.42);
+  border-color: rgba(255, 90, 60, 0.42);
   border-left-color: var(--accent);
   color: var(--ink);
   transform: translateX(2px);
 }
 
 .answer-button:nth-child(2) {
-  border-left-color: rgba(255, 132, 45, 0.72);
+  border-left-color: rgba(255, 140, 46, 0.72);
 }
 
 .result-shell {
@@ -273,22 +275,39 @@ h1 {
 
 .matrix-bg {
   fill: rgba(255, 255, 255, 0.68);
-  stroke: rgba(255, 90, 61, 0.34);
+  stroke: rgba(255, 90, 60, 0.34);
   stroke-width: 2;
 }
 
 .matrix-quadrant {
-  fill: rgba(255, 90, 61, 0.025);
+  fill: rgba(255, 90, 60, 0.025);
   transition: fill 220ms ease;
 }
 
 .matrix-quadrant.is-active {
-  fill: rgba(255, 90, 61, 0.12);
+  fill: rgba(255, 90, 60, 0.12);
 }
 
 .matrix-line {
-  stroke: rgba(255, 90, 61, 0.34);
+  stroke: rgba(255, 90, 60, 0.34);
   stroke-width: 1.5;
+}
+
+.matrix-tick {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.matrix-axis {
+  fill: var(--muted-soft);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.matrix-axis--initiative {
+  transform: rotate(-90deg);
 }
 
 .matrix-label {
@@ -319,7 +338,7 @@ h1 {
 }
 
 .matrix-dot {
-  filter: drop-shadow(0 0 13px rgba(255, 90, 61, 0.42));
+  filter: drop-shadow(0 0 13px rgba(255, 90, 60, 0.42));
 }
 
 .matrix-dot-pulse {
@@ -368,9 +387,9 @@ h1 {
 
 .email-card {
   background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 90, 61, 0.14);
+  border: 1px solid rgba(255, 90, 60, 0.14);
   border-radius: 22px;
-  box-shadow: 0 28px 70px rgba(255, 90, 61, 0.1);
+  box-shadow: 0 4px 24px rgba(255, 120, 50, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
   display: grid;
   gap: 18px;
   padding: 22px;
@@ -390,7 +409,7 @@ h1 {
 
 input[type="email"] {
   background: #ffffff;
-  border: 1px solid rgba(255, 90, 61, 0.18);
+  border: 1px solid rgba(255, 90, 60, 0.18);
   border-radius: 999px;
   color: var(--ink);
   min-height: 62px;
@@ -401,7 +420,7 @@ input[type="email"] {
 
 input[type="email"]:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(255, 90, 61, 0.13);
+  box-shadow: 0 0 0 4px rgba(255, 90, 60, 0.13);
 }
 
 .form-error {
