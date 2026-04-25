@@ -37,7 +37,7 @@ const questions = [
     ],
   },
   {
-    text: "Someone on your team has been flat for three weeks. Still delivering, but something's off. You:",
+    text: "Someone on your team has been disengaged for three weeks. Still delivering, but something's off. You:",
     axis: "initiative",
     answers: [
       { text: "Everyone has rough patches. You'll give it more time.", high: false },
