@@ -10,9 +10,15 @@ python3 -m http.server 8000
 
 Then open `http://127.0.0.1:8000/`.
 
-## Form handler
+This serves the static app only. To test email sending locally, run it with a platform that supports `/api/send-result`, such as Vercel:
 
-Set `FORM_ENDPOINT` in `script.js` to the Formspree, Buttondown, or equivalent endpoint before launch. The form posts:
+```sh
+RESEND_API_KEY=your_key RESEND_FROM_EMAIL="Hard Conversations <results@bettermanagers.club>" vercel dev
+```
+
+## Email handler
+
+The browser posts to `/api/send-result`:
 
 ```json
 {
@@ -23,4 +29,10 @@ Set `FORM_ENDPOINT` in `script.js` to the Formspree, Buttondown, or equivalent e
 }
 ```
 
-With `FORM_ENDPOINT` empty, the page still advances to the thank-you screen and logs the payload for local testing.
+The API route sends the matching result email through Resend. Configure these environment variables in production:
+
+```sh
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM_EMAIL="Hard Conversations <results@bettermanagers.club>"
+ALLOWED_ORIGIN=https://bettermanagers.club
+```

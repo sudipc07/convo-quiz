@@ -1,4 +1,4 @@
-const FORM_ENDPOINT = "";
+const FORM_ENDPOINT = "/api/send-result";
 
 const questions = [
   {
@@ -288,11 +288,6 @@ async function submitResult(email, archetype, scores) {
     initiative_score: scores.initiative,
     craft_score: scores.craft,
   };
-
-  if (!FORM_ENDPOINT) {
-    console.info("Set FORM_ENDPOINT in script.js before launch.", payload);
-    return;
-  }
 
   const response = await fetch(FORM_ENDPOINT, {
     method: "POST",
