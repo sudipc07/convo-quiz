@@ -129,7 +129,7 @@ const questionText = document.querySelector("#questionText");
 const answers = document.querySelector("#answers");
 const resultName = document.querySelector("#resultName");
 const resultLine = document.querySelector("#resultLine");
-const resultDelayedElements = document.querySelectorAll(".result-delayed");
+const resultReveal = document.querySelector("#resultReveal");
 const matrixDotGroup = document.querySelector("#matrixDotGroup");
 const matrixLabels = document.querySelectorAll(".matrix-label");
 const matrixQuadrants = document.querySelectorAll(".matrix-quadrant");
@@ -239,10 +239,9 @@ function revealResult() {
   archetypeInput.value = state.result.name;
   renderMatrix(state.result);
   showScreen("result");
-  window.setTimeout(() => {
-    resultDelayedElements.forEach((element) => element.classList.add("is-visible"));
-  }, 500);
-  window.setTimeout(() => emailInput.focus(), 820);
+  window.setTimeout(() => resultReveal.classList.add("is-visible"), 2300);
+  window.setTimeout(() => emailForm.classList.add("is-visible"), 3100);
+  window.setTimeout(() => emailInput.focus(), 3400);
 }
 
 function renderMatrix(result) {

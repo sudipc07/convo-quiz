@@ -310,7 +310,7 @@ h1 {
 }
 
 .matrix-dot-group.is-animating {
-  animation: dot-settle 760ms cubic-bezier(0.19, 1, 0.22, 1) both;
+  animation: dot-wander 2.1s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
 .matrix-dot,
@@ -335,31 +335,35 @@ h1 {
   text-align: center;
 }
 
-.result-delayed {
+.result-copy,
+.email-delayed {
   opacity: 0;
   transform: translateY(8px);
   transition:
-    opacity 260ms ease,
-    transform 260ms ease;
+    opacity 320ms ease,
+    transform 320ms ease;
 }
 
-.result-delayed.is-visible {
+.result-copy.is-visible,
+.email-delayed.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 .reveal h2 {
   color: var(--accent);
-  font-size: clamp(3rem, 13vw, 6.4rem);
-  line-height: 0.9;
+  font-size: clamp(2.45rem, 8vw, 4.8rem);
+  line-height: 0.95;
   text-wrap: balance;
 }
 
 .reveal p:last-child {
   color: var(--ink);
-  font-size: clamp(1.12rem, 4vw, 1.5rem);
-  font-weight: 520;
+  font-size: clamp(1rem, 3vw, 1.28rem);
+  font-weight: 650;
   line-height: 1.35;
+  margin: 0 auto;
+  max-width: 32rem;
 }
 
 .email-card {
@@ -481,12 +485,24 @@ input[type="email"]:focus {
   }
 }
 
-@keyframes dot-settle {
-  from {
+@keyframes dot-wander {
+  0% {
     transform: translate(160px, 160px);
   }
 
-  to {
+  24% {
+    transform: translate(188px, 132px);
+  }
+
+  46% {
+    transform: translate(122px, 182px);
+  }
+
+  68% {
+    transform: translate(174px, 202px);
+  }
+
+  100% {
     transform: translate(var(--dot-x), var(--dot-y));
   }
 }
