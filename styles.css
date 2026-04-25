@@ -1,18 +1,15 @@
 :root {
-  --background: #111315;
-  --ink: #151515;
-  --cream: #fff7ec;
-  --white: #fffaf2;
-  --muted: #c9c0b4;
-  --coral: #ff6b4a;
-  --teal: #38d6c6;
-  --sun: #f4c95d;
-  --panel: #1b1e22;
-  --panel-strong: #fff2dd;
-  --line: #363236;
-  --lift: #ff6b4a1c;
-  --danger: #ff9a91;
-  color-scheme: dark;
+  --paper: #f8eddd;
+  --paper-hot: #fff6e8;
+  --ink: #171412;
+  --muted: #6f6257;
+  --coral: #ff4f2e;
+  --teal: #00a99d;
+  --blue: #2457ff;
+  --yellow: #ffd84d;
+  --shadow: #171412;
+  --danger: #b3261e;
+  color-scheme: light;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -30,10 +27,10 @@ body {
 body {
   margin: 0;
   background:
-    linear-gradient(145deg, rgba(56, 214, 198, 0.11) 0 21%, transparent 21% 100%),
-    linear-gradient(26deg, transparent 0 62%, rgba(255, 107, 74, 0.14) 62% 78%, transparent 78% 100%),
-    linear-gradient(180deg, #151718 0%, var(--background) 100%);
-  color: var(--white);
+    linear-gradient(135deg, transparent 0 68%, rgba(0, 169, 157, 0.22) 68% 100%),
+    linear-gradient(23deg, rgba(255, 216, 77, 0.62) 0 18%, transparent 18% 100%),
+    var(--paper);
+  color: var(--ink);
 }
 
 button,
@@ -49,11 +46,10 @@ input {
 
 .app::before {
   background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 250, 242, 0.035) 0 1px,
-      transparent 1px 80px
-    );
+    linear-gradient(var(--ink) 0 0) 18px 18px / 12px 12px no-repeat,
+    linear-gradient(var(--coral) 0 0) calc(100% - 34px) 42px / 32px 10px no-repeat,
+    linear-gradient(var(--blue) 0 0) calc(100% - 42px) 58px / 10px 32px no-repeat,
+    repeating-linear-gradient(90deg, rgba(23, 20, 18, 0.055) 0 1px, transparent 1px 76px);
   content: "";
   inset: 0;
   opacity: 0.7;
@@ -67,7 +63,7 @@ input {
   inset: 0;
   min-height: 100svh;
   opacity: 0;
-  padding: 32px 20px;
+  padding: 28px 18px;
   pointer-events: none;
   position: absolute;
   transform: translateX(42px);
@@ -95,22 +91,22 @@ input {
 .result-shell,
 .thanks-shell {
   margin: 0 auto;
-  max-width: 720px;
+  max-width: 760px;
   width: 100%;
 }
 
 .stack {
   display: grid;
-  gap: 24px;
+  gap: 28px;
   padding-block: 24px;
 }
 
 .eyebrow,
 .question-count {
-  color: var(--teal);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  color: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
   margin: 0;
   text-transform: uppercase;
 }
@@ -123,33 +119,34 @@ p {
 }
 
 h1 {
-  color: var(--cream);
-  font-size: clamp(3rem, 12vw, 6.25rem);
-  line-height: 0.9;
-  max-width: 10ch;
+  color: var(--ink);
+  font-size: clamp(3.3rem, 14vw, 7.2rem);
+  line-height: 0.84;
+  max-width: 9ch;
   text-wrap: balance;
 }
 
 .lede {
   color: var(--muted);
-  font-size: clamp(1.12rem, 4vw, 1.42rem);
-  line-height: 1.45;
+  font-size: clamp(1.16rem, 4vw, 1.5rem);
+  font-weight: 650;
+  line-height: 1.34;
   max-width: 34rem;
 }
 
 .primary-button {
   align-items: center;
   background: var(--coral);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 4px;
-  box-shadow: 0 16px 36px rgba(255, 107, 74, 0.22);
-  color: #18100f;
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--shadow);
+  color: var(--ink);
   cursor: pointer;
   display: inline-flex;
   font-weight: 800;
   justify-content: center;
-  min-height: 62px;
-  padding: 17px 24px;
+  min-height: 64px;
+  padding: 17px 26px;
   transition:
     filter 160ms ease,
     transform 160ms ease;
@@ -157,11 +154,13 @@ h1 {
 }
 
 .primary-button:hover {
-  filter: brightness(1.06);
+  filter: none;
+  transform: translate(-2px, -2px);
 }
 
 .primary-button:active {
-  transform: translateY(1px);
+  box-shadow: 4px 4px 0 var(--shadow);
+  transform: translate(4px, 4px);
 }
 
 .primary-button:disabled {
@@ -171,9 +170,9 @@ h1 {
 
 .question-shell {
   display: grid;
-  gap: 26px;
+  gap: 24px;
   opacity: 1;
-  padding-block: 14px;
+  padding-block: 10px;
   transform: translateX(0);
   transition:
     opacity 180ms ease,
@@ -191,32 +190,33 @@ h1 {
 }
 
 .question-text {
-  color: var(--cream);
-  font-size: clamp(1.68rem, 6.5vw, 3.25rem);
+  color: var(--ink);
+  font-size: clamp(1.42rem, 5vw, 2.55rem);
+  font-weight: 900;
   letter-spacing: 0;
-  line-height: 1.08;
-  max-width: 17ch;
+  line-height: 1.04;
+  max-width: 21ch;
   text-wrap: balance;
 }
 
 .answers {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .answer-button {
-  background: var(--panel-strong);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-left: 7px solid var(--teal);
-  border-radius: 4px;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2);
+  background: var(--paper-hot);
+  border: 3px solid var(--ink);
+  border-left: 18px solid var(--teal);
+  border-radius: 0;
+  box-shadow: 9px 9px 0 var(--shadow);
   color: var(--ink);
   cursor: pointer;
-  font-size: clamp(1.1rem, 4.4vw, 1.45rem);
-  font-weight: 750;
-  line-height: 1.25;
-  min-height: 112px;
-  padding: 26px 24px 26px 22px;
+  font-size: clamp(1.25rem, 4.8vw, 1.7rem);
+  font-weight: 900;
+  line-height: 1.16;
+  min-height: 132px;
+  padding: 26px 24px 26px 20px;
   text-align: left;
   transition:
     background 160ms ease,
@@ -228,19 +228,23 @@ h1 {
 
 .answer-button:hover,
 .answer-button:focus-visible {
-  background: var(--cream);
-  border-color: rgba(56, 214, 198, 0.72);
-  box-shadow: 0 22px 54px rgba(56, 214, 198, 0.16);
+  background: #ffffff;
+  border-color: var(--ink);
+  box-shadow: 12px 12px 0 var(--shadow);
   outline: 0;
-  transform: translateY(-2px);
+  transform: translate(-3px, -3px);
 }
 
 .answer-button.is-selected {
-  background: var(--lift);
-  border-color: rgba(255, 107, 74, 0.82);
+  background: var(--yellow);
+  border-color: var(--ink);
   border-left-color: var(--coral);
-  color: var(--white);
-  transform: translateX(3px);
+  color: var(--ink);
+  transform: translate(3px, 3px);
+}
+
+.answer-button:nth-child(2) {
+  border-left-color: var(--blue);
 }
 
 .result-shell {
@@ -256,22 +260,24 @@ h1 {
 }
 
 .reveal h2 {
-  color: var(--sun);
-  font-size: clamp(3rem, 13vw, 6.4rem);
-  line-height: 0.9;
+  color: var(--coral);
+  font-size: clamp(3.2rem, 14vw, 7rem);
+  line-height: 0.84;
   text-wrap: balance;
 }
 
 .reveal p:last-child {
-  color: var(--cream);
-  font-size: clamp(1.16rem, 4vw, 1.55rem);
-  line-height: 1.35;
+  color: var(--ink);
+  font-size: clamp(1.2rem, 4vw, 1.65rem);
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 .email-card {
-  background: rgba(255, 247, 236, 0.08);
-  border: 1px solid rgba(255, 247, 236, 0.15);
-  border-radius: 6px;
+  background: var(--paper-hot);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 9px 9px 0 var(--shadow);
   display: grid;
   gap: 18px;
   padding: 22px;
@@ -285,13 +291,14 @@ h1 {
 .email-card p {
   color: var(--muted);
   font-size: 1.02rem;
+  font-weight: 650;
   line-height: 1.5;
 }
 
 input[type="email"] {
-  background: #fffaf2;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  border-radius: 0;
   color: var(--ink);
   min-height: 62px;
   outline: 0;
@@ -300,8 +307,8 @@ input[type="email"] {
 }
 
 input[type="email"]:focus {
-  border-color: var(--teal);
-  box-shadow: 0 0 0 4px rgba(56, 214, 198, 0.18);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(36, 87, 255, 0.18);
 }
 
 .form-error {
@@ -320,19 +327,19 @@ input[type="email"]:focus {
 }
 
 .thanks-shell h2 {
-  color: var(--sun);
+  color: var(--coral);
   font-size: clamp(2.7rem, 12vw, 5.6rem);
   line-height: 0.95;
 }
 
 .thanks-shell p {
-  color: var(--white);
+  color: var(--ink);
   font-size: clamp(1.1rem, 4vw, 1.45rem);
   line-height: 1.4;
 }
 
 #submittedEmail {
-  color: var(--teal);
+  color: var(--blue);
   overflow-wrap: anywhere;
 }
 
@@ -350,11 +357,11 @@ input[type="email"]:focus {
 
 @media (min-width: 720px) {
   .screen {
-    padding: 56px;
+    padding: 48px 56px;
   }
 
   .question-shell {
-    gap: 32px;
+    gap: 34px;
   }
 
   .answers {
@@ -362,8 +369,8 @@ input[type="email"]:focus {
   }
 
   .answer-button {
-    min-height: 124px;
-    padding: 30px 30px 30px 26px;
+    min-height: 148px;
+    padding: 32px 34px 32px 28px;
   }
 }
 
