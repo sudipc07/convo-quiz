@@ -32,7 +32,7 @@
       name="twitter:image"
       content="https://hardconversations.bettermanagers.club/assets/og-hard-conversation-playbook.png"
     />
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="styles.css?v=13" />
   </head>
   <body>
     <main class="app" id="app">
@@ -60,71 +60,122 @@
 
       <section class="screen" data-screen="result">
         <div class="result-shell">
-          <div class="matrix-card" aria-label="Hard conversations assessment matrix">
-            <svg class="matrix" viewBox="0 0 320 320" role="img">
-              <rect class="matrix-bg" x="1" y="1" width="318" height="318" rx="8" />
-              <rect class="matrix-quadrant" data-quadrant="bulldozer" x="1" y="1" width="159" height="159" />
-              <rect class="matrix-quadrant" data-quadrant="coach" x="160" y="1" width="159" height="159" />
-              <rect class="matrix-quadrant" data-quadrant="ghost" x="1" y="160" width="159" height="159" />
-              <rect class="matrix-quadrant" data-quadrant="thinker" x="160" y="160" width="159" height="159" />
-              <line class="matrix-line" x1="160" y1="0" x2="160" y2="320" />
-              <line class="matrix-line" x1="0" y1="160" x2="320" y2="160" />
-              <line class="matrix-tick" x1="157" y1="160" x2="163" y2="160" />
-              <line class="matrix-tick" x1="160" y1="157" x2="160" y2="163" />
-              <text class="matrix-label" data-quadrant="bulldozer" x="18" y="32">
-                The Bulldozer
-              </text>
-              <text class="matrix-label" data-quadrant="coach" x="302" y="32" text-anchor="end">
-                The Coach
-              </text>
-              <text class="matrix-label" data-quadrant="ghost" x="18" y="300">
-                The Ghost
-              </text>
-              <text
-                class="matrix-label"
-                data-quadrant="thinker"
-                x="302"
-                y="300"
-                text-anchor="end"
-              >
-                The Thinker
-              </text>
-              <g class="matrix-dot-group" id="matrixDotGroup">
-                <circle class="matrix-dot-pulse" cx="0" cy="0" r="12" />
-                <circle class="matrix-dot" cx="0" cy="0" r="12" />
-              </g>
-            </svg>
-            <div class="matrix-axis matrix-axis--initiative">↑ Initiative</div>
-            <div class="matrix-axis matrix-axis--craft">Craft →</div>
-          </div>
-
-          <div class="reveal result-copy" id="resultReveal">
+          <div class="result-copy" id="resultReveal">
+            <p class="eyebrow">Your result</p>
             <h2 id="resultName"></h2>
             <p id="resultLine"></p>
           </div>
 
-          <form class="email-card email-delayed" id="emailForm">
-            <h3>Want the full picture?</h3>
-            <p>
-              We'll send your complete result - what your archetype means, where
-              your blind spots are, and what to focus on next.
-            </p>
-            <label class="sr-only" for="emailInput">Work email</label>
-            <input
-              id="emailInput"
-              name="email"
-              type="email"
-              inputmode="email"
-              autocomplete="email"
-              placeholder="your work email"
-              required
-            />
-            <input type="hidden" name="archetype" id="archetypeInput" />
-            <p class="form-error" id="formError" role="alert"></p>
-            <button class="primary-button" type="submit" id="submitButton">
-              Send my result &rarr;
-            </button>
-          </form>
+          <div class="next-steps" id="nextSteps">
+            <p class="eyebrow">Three ways forward + one for later</p>
+
+            <div class="result-cards">
+              <article
+                class="result-card result-card--long"
+                data-href="https://www.skool.com/better-managers-club-3666/about"
+                role="link"
+                tabindex="0"
+                aria-label="Start free trial"
+              >
+                <p class="card-tag">Long-term</p>
+                <h3>Become the manager AI can't replace.</h3>
+                <p>
+                  A private community of human-first managers. Mentors who've built
+                  exceptional teams. Coaches working inside organisations today. Peers
+                  in the same trenches as you.
+                </p>
+                <a
+                  class="primary-button card-button"
+                  href="https://www.skool.com/better-managers-club-3666/about"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Start free trial &rarr;
+                </a>
+              </article>
+
+              <article
+                class="result-card result-card--week"
+                data-href="https://topmate.io/sudipto_chanda/1994555"
+                role="link"
+                tabindex="0"
+                aria-label="Book a call"
+              >
+                <p class="card-tag">This week</p>
+                <h3>Bring me your hardest conversation.</h3>
+                <p>
+                  30 minutes. One specific situation. Walk out with the words you'll
+                  actually use.
+                </p>
+                <a
+                  class="primary-button card-button"
+                  href="https://topmate.io/sudipto_chanda/1994555"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Book a call · $59 &rarr;
+                </a>
+              </article>
+
+              <article
+                class="result-card result-card--self"
+                data-href="https://sudipc.gumroad.com/l/hardconversations"
+                role="link"
+                tabindex="0"
+                aria-label="Get the scripts"
+              >
+                <p class="card-tag">Self-learn</p>
+                <h3>12 scripts. The conversations you keep avoiding.</h3>
+                <p>
+                  12 word-for-word scripts. 12 AI prompts to adapt each to your
+                  situation. 41-page PDF.
+                </p>
+                <a
+                  class="primary-button card-button"
+                  href="https://sudipc.gumroad.com/l/hardconversations"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Get it for $15 &rarr;
+                </a>
+              </article>
+
+              <form class="result-card result-card--report" id="emailForm">
+                <div class="report-card-content" id="reportCardContent">
+                  <p class="card-tag">The report</p>
+                  <h3>Just the full report, please.</h3>
+                  <p>
+                    Your archetype, the specific blind spot you're carrying, and what
+                    to do about it. In your inbox in 60 seconds.
+                  </p>
+                  <button class="primary-button card-button" type="button" id="revealEmailButton">
+                    Email me the report &rarr;
+                  </button>
+                  <div class="email-inline" id="emailInline" hidden>
+                    <label class="sr-only" for="emailInput">Email</label>
+                    <input
+                      id="emailInput"
+                      name="email"
+                      type="email"
+                      inputmode="email"
+                      autocomplete="email"
+                      placeholder="your@email.com"
+                      required
+                    />
+                    <button class="primary-button send-button" type="submit" id="submitButton">
+                      Send &rarr;
+                    </button>
+                  </div>
+                  <p class="form-error" id="formError" role="alert"></p>
+                </div>
+                <div class="report-card-success" id="reportCardSuccess" hidden>
+                  <p class="card-tag">The report</p>
+                  <h3><span aria-hidden="true">✓</span> Sent.</h3>
+                  <p>Check your inbox in 60 seconds.</p>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
 

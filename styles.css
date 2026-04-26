@@ -293,6 +293,7 @@ h1 {
 .result-shell {
   display: grid;
   gap: 28px;
+  max-width: 1100px;
   padding-block: 30px;
 }
 
@@ -397,14 +398,10 @@ h1 {
   transform-origin: center;
 }
 
-.reveal {
+.result-copy,
+.next-steps {
   display: grid;
   gap: 16px;
-  text-align: center;
-}
-
-.result-copy,
-.email-delayed {
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -413,47 +410,135 @@ h1 {
 }
 
 .result-copy.is-visible,
-.email-delayed.is-visible {
+.next-steps.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.reveal h2 {
-  color: var(--accent);
-  font-size: clamp(2.05rem, 6.2vw, 3.65rem);
-  line-height: 0.95;
+.result-copy h2 {
+  color: var(--ink);
+  font-size: clamp(3rem, 11vw, 6.4rem);
+  line-height: 0.9;
+  max-width: 9ch;
   text-wrap: balance;
 }
 
-.reveal p:last-child {
-  color: var(--ink);
-  font-size: clamp(1rem, 3vw, 1.28rem);
-  font-weight: 650;
+.result-copy p:last-child {
+  color: var(--muted);
+  font-size: clamp(1.08rem, 3.7vw, 1.35rem);
+  font-weight: 450;
   line-height: 1.35;
-  margin: 0 auto;
   max-width: 32rem;
 }
 
-.email-card {
+.next-steps {
+  gap: 18px;
+}
+
+.result-cards {
+  display: grid;
+  gap: 14px;
+}
+
+.result-card {
+  --strip: rgba(255, 90, 60, 0.72);
   background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 90, 60, 0.14);
-  border-radius: 22px;
+  border: 1px solid rgba(255, 90, 60, 0.16);
+  border-left: 4px solid var(--strip);
+  border-radius: 18px;
   box-shadow: 0 4px 24px rgba(255, 120, 50, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
   display: grid;
-  gap: 18px;
-  padding: 22px;
+  gap: 14px;
+  grid-template-rows: auto auto 1fr auto;
+  min-height: 100%;
+  padding: 24px 22px 22px;
 }
 
-.email-card h3 {
-  font-size: clamp(1.7rem, 7vw, 2.7rem);
-  line-height: 1;
+.result-card[data-href] {
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
 }
 
-.email-card p {
+.result-card[data-href]:hover,
+.result-card[data-href]:focus-visible {
+  background: #ffffff;
+  border-color: rgba(255, 90, 60, 0.28);
+  box-shadow: 0 12px 40px rgba(255, 120, 50, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+  outline: 0;
+  transform: translateY(-2px);
+}
+
+.report-card-content,
+.report-card-success {
+  display: grid;
+  gap: 14px;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100%;
+}
+
+.result-card--long {
+  --strip: #27966b;
+}
+
+.result-card--week {
+  --strip: rgba(255, 90, 60, 0.84);
+}
+
+.result-card--self {
+  --strip: #7a62d6;
+}
+
+.result-card--report {
+  --strip: rgba(90, 90, 90, 0.45);
+}
+
+.card-tag {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.result-card h3 {
+  color: var(--ink);
+  font-size: clamp(1.42rem, 5.3vw, 2.05rem);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.result-card p:not(.card-tag):not(.form-error) {
   color: var(--muted);
   font-size: 1.02rem;
   font-weight: 450;
   line-height: 1.5;
+}
+
+.card-button {
+  align-self: end;
+  justify-self: end;
+  margin-top: 8px;
+  min-height: 50px;
+  padding: 13px 20px;
+  text-decoration: none;
+}
+
+.email-inline {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.send-button {
+  min-height: 56px;
+  padding: 14px 22px;
+  width: 100%;
 }
 
 input[type="email"] {
@@ -475,6 +560,8 @@ input[type="email"]:focus {
 .form-error {
   color: var(--danger);
   display: none;
+  font-size: 0.94rem;
+  font-weight: 700;
 }
 
 .form-error.is-visible {
@@ -533,12 +620,35 @@ input[type="email"]:focus {
     min-height: 124px;
     padding: 29px 30px 29px 26px;
   }
+
+  .result-shell {
+    gap: 36px;
+  }
+
+  .result-cards {
+    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .result-card {
+    min-height: 310px;
+    padding: 28px 26px 24px;
+  }
+
+  .email-inline {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .send-button {
+    width: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .screen,
   .question-shell,
-  .reveal,
+  .result-copy,
+  .next-steps,
   .answer-button,
   .primary-button {
     transition: none;

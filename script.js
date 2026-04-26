@@ -1,7 +1,4 @@
 const FORM_ENDPOINT = "/api/send-result";
-const DOT_ANIMATION_MS = 2100;
-const RESULT_REVEAL_MS = 2300;
-const EMAIL_REVEAL_MS = 3100;
 
 const questions = [
   {
@@ -90,22 +87,26 @@ const archetypes = {
   coach: {
     key: "coach",
     name: "The Coach",
-    line: "You know when to push and when to hold back.",
+    displayName: "Coach",
+    line: "You raise things early and handle them well. Rare. Don't get rusty.",
   },
   bulldozer: {
     key: "bulldozer",
     name: "The Bulldozer",
-    line: "You have the courage most managers never build. Now make it stick.",
+    displayName: "Bulldozer",
+    line: "You raise things early. It doesn't always go well.",
   },
   thinker: {
     key: "thinker",
     name: "The Thinker",
-    line: "You know exactly what good looks like. You're just not always the one saying it.",
+    displayName: "Thinker",
+    line: "You'd handle it well. You keep putting it off.",
   },
   ghost: {
     key: "ghost",
     name: "The Ghost",
-    line: "Something needs to be said. You're just not sure what - or when.",
+    displayName: "Ghost",
+    line: "You put it off. And when it happens, it's rough.",
   },
 };
 
@@ -135,20 +136,40 @@ const answers = document.querySelector("#answers");
 const resultName = document.querySelector("#resultName");
 const resultLine = document.querySelector("#resultLine");
 const resultReveal = document.querySelector("#resultReveal");
-const matrixDotGroup = document.querySelector("#matrixDotGroup");
-const matrixLabels = document.querySelectorAll(".matrix-label");
-const matrixQuadrants = document.querySelectorAll(".matrix-quadrant");
+const nextSteps = document.querySelector("#nextSteps");
 const emailForm = document.querySelector("#emailForm");
 const emailInput = document.querySelector("#emailInput");
-const archetypeInput = document.querySelector("#archetypeInput");
+const emailInline = document.querySelector("#emailInline");
+const revealEmailButton = document.querySelector("#revealEmailButton");
 const formError = document.querySelector("#formError");
 const submitButton = document.querySelector("#submitButton");
+const reportCardContent = document.querySelector("#reportCardContent");
+const reportCardSuccess = document.querySelector("#reportCardSuccess");
 const submittedEmail = document.querySelector("#submittedEmail");
-let matrixHighlightTimer;
+const linkedCards = document.querySelectorAll(".result-card[data-href]");
 
 startButton.addEventListener("click", () => {
   renderQuestion();
   showScreen("question");
+});
+
+linkedCards.forEach((card) => {
+  card.addEventListener("click", (event) => {
+    if (event.target.closest("a")) {
+      return;
+    }
+
+    window.open(card.dataset.href, "_blank", "noopener");
+  });
+
+  card.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    window.open(card.dataset.href, "_blank", "noopener");
+  });
 });
 
 backButton.addEventListener("click", () => {
@@ -163,6 +184,12 @@ backButton.addEventListener("click", () => {
   requestAnimationFrame(() => {
     questionShell.classList.remove("is-entering");
   });
+});
+
+revealEmailButton.addEventListener("click", () => {
+  emailInline.hidden = false;
+  revealEmailButton.hidden = true;
+  emailInput.focus();
 });
 
 emailForm.addEventListener("submit", async (event) => {
@@ -180,13 +207,16 @@ emailForm.addEventListener("submit", async (event) => {
 
   try {
     await submitResult(email, state.result.name, state.scores);
-    submittedEmail.textContent = email;
-    showScreen("thanks");
+    if (submittedEmail) {
+      submittedEmail.textContent = email;
+    }
+    reportCardContent.hidden = true;
+    reportCardSuccess.hidden = false;
   } catch (error) {
-    showFormError("Something went wrong. Please try again.");
+    showFormError("Something went wrong. Try again.");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Send my result \u2192";
+    submitButton.textContent = "Send \u2192";
   }
 });
 
@@ -268,43 +298,14 @@ function revealResult() {
     state.result = archetypes.ghost;
   }
 
-  resultName.textContent = state.result.name;
+  resultName.textContent = `You're a ${state.result.displayName}.`;
   resultLine.textContent = state.result.line;
-  archetypeInput.value = state.result.name;
-  renderMatrix(state.result);
+  resetReportCard();
   showScreen("result");
-  window.setTimeout(() => resultReveal.classList.add("is-visible"), RESULT_REVEAL_MS);
-  window.setTimeout(() => emailForm.classList.add("is-visible"), EMAIL_REVEAL_MS);
-}
-
-function renderMatrix(result) {
-  const padding = 24;
-  const usableSize = 320 - padding * 2;
-  const x = padding + (state.scores.craft / 5) * usableSize;
-  const y = 320 - padding - (state.scores.initiative / 5) * usableSize;
-
-  matrixDotGroup.classList.remove("is-animating");
-  matrixDotGroup.style.setProperty("--dot-x", `${x}px`);
-  matrixDotGroup.style.setProperty("--dot-y", `${y}px`);
-  void matrixDotGroup.getBoundingClientRect();
-  matrixDotGroup.classList.add("is-animating");
-
-  window.clearTimeout(matrixHighlightTimer);
-  matrixLabels.forEach((label) => {
-    label.classList.remove("is-active");
+  requestAnimationFrame(() => {
+    resultReveal.classList.add("is-visible");
+    nextSteps.classList.add("is-visible");
   });
-  matrixQuadrants.forEach((quadrant) => {
-    quadrant.classList.remove("is-active");
-  });
-
-  matrixHighlightTimer = window.setTimeout(() => {
-    matrixLabels.forEach((label) => {
-      label.classList.toggle("is-active", label.dataset.quadrant === result.key);
-    });
-    matrixQuadrants.forEach((quadrant) => {
-      quadrant.classList.toggle("is-active", quadrant.dataset.quadrant === result.key);
-    });
-  }, DOT_ANIMATION_MS);
 }
 
 function showScreen(name) {
@@ -353,4 +354,15 @@ function showFormError(message) {
 function clearFormError() {
   formError.textContent = "";
   formError.classList.remove("is-visible");
+}
+
+function resetReportCard() {
+  clearFormError();
+  emailForm.reset();
+  emailInline.hidden = true;
+  revealEmailButton.hidden = false;
+  reportCardContent.hidden = false;
+  reportCardSuccess.hidden = true;
+  submitButton.disabled = false;
+  submitButton.textContent = "Send \u2192";
 }
