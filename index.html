@@ -32,7 +32,7 @@
       name="twitter:image"
       content="https://hardconversations.bettermanagers.club/assets/og-hard-conversation-playbook.png"
     />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=21" />
   </head>
   <body>
     <main class="app" id="app">
@@ -61,15 +61,79 @@
       <section class="screen" data-screen="result">
         <div class="result-shell">
           <div class="result-copy" id="resultReveal">
-            <p class="eyebrow">Your result</p>
+            <p class="eyebrow reveal-eyebrow">Your result</p>
             <h2 id="resultName"></h2>
-            <p id="resultLine"></p>
+            <p class="reveal-line" id="resultLine"></p>
+            <p class="connector-line" id="resultConnector"></p>
           </div>
 
+          <div class="result-matrix" id="resultMatrix"></div>
+
           <div class="next-steps" id="nextSteps">
-            <p class="eyebrow">Three ways forward + one for later</p>
+            <p class="eyebrow reveal-next-label">Pick the one that fits this week.</p>
 
             <div class="result-cards">
+              <article
+                class="result-card result-card--week"
+                data-href="https://topmate.io/sudipto_chanda/1994555"
+                role="link"
+                tabindex="0"
+                aria-label="Book a call"
+              >
+                <div class="card-meta">
+                  <p class="card-tag">Monday morning</p>
+                  <p class="card-price">$59</p>
+                </div>
+                <h3>Bring me your hardest conversation.</h3>
+                <p>
+                  30 minutes with Sudipto Chanda, founder and chief mentor of Better
+                  Managers Club. 25 years equipping managers for the hard part of the
+                  job: people.
+                </p>
+                <p>
+                  One situation. Walk out with the words you'll actually use on
+                  Monday.
+                </p>
+                <a
+                  class="primary-button card-button"
+                  href="https://topmate.io/sudipto_chanda/1994555"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Book a call &rarr;
+                </a>
+              </article>
+
+              <article
+                class="result-card result-card--self"
+                data-href="https://sudipc.gumroad.com/l/hardconversations"
+                role="link"
+                tabindex="0"
+                aria-label="Get the Playbook"
+              >
+                <div class="card-meta">
+                  <p class="card-tag">Self-learn</p>
+                  <p class="card-price">$15</p>
+                </div>
+                <h3>12 scripts. The conversations you keep avoiding.</h3>
+                <p>
+                  The performance one. The boundary one. The promotion one that isn't
+                  coming. The exit one you can't say out loud.
+                </p>
+                <p>
+                  12 word-for-word scripts. 12 AI prompts to adapt each to the actual
+                  person across from you. 41 pages.
+                </p>
+                <a
+                  class="primary-button card-button"
+                  href="https://sudipc.gumroad.com/l/hardconversations"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Get the Playbook &rarr;
+                </a>
+              </article>
+
               <article
                 class="result-card result-card--long"
                 data-href="https://www.skool.com/better-managers-club-3666/about"
@@ -77,12 +141,21 @@
                 tabindex="0"
                 aria-label="Start free trial"
               >
-                <p class="card-tag">Long-term</p>
-                <h3>Become the manager AI can't replace.</h3>
+                <div class="card-meta">
+                  <p class="card-tag">Every week</p>
+                  <p class="card-price">Free trial</p>
+                </div>
+                <h3>Join Better Managers Club.</h3>
                 <p>
-                  A private community of human-first managers. Mentors who've built
-                  exceptional teams. Coaches working inside organisations today. Peers
-                  in the same trenches as you.
+                  Trust. Feedback. Coaching. Judgment. Not soft skills any more.
+                  Survival skills.
+                </p>
+                <p>
+                  Become the manager AI can't replace.
+                </p>
+                <p>
+                  Mentors who've built exceptional teams over decades. Coaches working
+                  inside organisations today. Peers in the same trenches as you.
                 </p>
                 <a
                   class="primary-button card-button"
@@ -92,66 +165,28 @@
                 >
                   Start free trial &rarr;
                 </a>
+                <p class="reassurance-line">Full access. Cancel anytime.</p>
               </article>
 
-              <article
-                class="result-card result-card--week"
-                data-href="https://topmate.io/sudipto_chanda/1994555"
-                role="link"
-                tabindex="0"
-                aria-label="Book a call"
-              >
-                <p class="card-tag">This week</p>
-                <h3>Bring me your hardest conversation.</h3>
-                <p>
-                  30 minutes. One specific situation. Walk out with the words you'll
-                  actually use.
-                </p>
-                <a
-                  class="primary-button card-button"
-                  href="https://topmate.io/sudipto_chanda/1994555"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Book a call · $59 &rarr;
-                </a>
-              </article>
-
-              <article
-                class="result-card result-card--self"
-                data-href="https://sudipc.gumroad.com/l/hardconversations"
-                role="link"
-                tabindex="0"
-                aria-label="Get the scripts"
-              >
-                <p class="card-tag">Self-learn</p>
-                <h3>12 scripts. The conversations you keep avoiding.</h3>
-                <p>
-                  12 word-for-word scripts. 12 AI prompts to adapt each to your
-                  situation. 41-page PDF.
-                </p>
-                <a
-                  class="primary-button card-button"
-                  href="https://sudipc.gumroad.com/l/hardconversations"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Get it for $15 &rarr;
-                </a>
-              </article>
-
-              <form class="result-card result-card--report" id="emailForm">
-                <div class="report-card-content" id="reportCardContent">
-                  <p class="card-tag">The report</p>
+              <form class="result-card result-card--report" id="emailForm" data-report-state="idle">
+                <div class="report-card-content">
+                  <div class="card-meta">
+                    <p class="card-tag">The report</p>
+                    <p class="card-price">Free</p>
+                  </div>
                   <h3>Just the full report, please.</h3>
                   <p>
                     Your archetype, the specific blind spot you're carrying, and what
                     to do about it. In your inbox in 60 seconds.
                   </p>
-                  <button class="primary-button card-button" type="button" id="revealEmailButton">
+                  <button
+                    class="primary-button card-button report-idle"
+                    type="button"
+                    id="revealEmailButton"
+                  >
                     Email me the report &rarr;
                   </button>
-                  <div class="email-inline" id="emailInline" hidden>
+                  <div class="email-inline report-input" id="emailInline">
                     <label class="sr-only" for="emailInput">Email</label>
                     <input
                       id="emailInput"
@@ -168,8 +203,7 @@
                   </div>
                   <p class="form-error" id="formError" role="alert"></p>
                 </div>
-                <div class="report-card-success" id="reportCardSuccess" hidden>
-                  <p class="card-tag">The report</p>
+                <div class="report-card-success report-sent" id="reportCardSuccess">
                   <h3><span aria-hidden="true">✓</span> Sent.</h3>
                   <p>Check your inbox in 60 seconds.</p>
                 </div>
@@ -190,6 +224,6 @@
       </section>
     </main>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=7"></script>
   </body>
 </html>
